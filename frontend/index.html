@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skylit | Weather Quest</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="scanlines" class="scanlines"></div>
+    <div class="crt-flicker"></div>
+
+    <div id="scene" class="scene scene-default">
+        <div class="stars" id="stars"></div>
+        <div id="particles" class="particles"></div>
+    </div>
+
+    <div class="app">
+        <!-- API Key Modal -->
+        <div id="apiModal" class="modal">
+            <div class="modal-content pixel-border">
+                <div class="modal-header">
+                    <div class="npc-sprite npc-idle" id="npcSprite"></div>
+                    <h2>SKYLIT</h2>
+                    <p class="npc-dialog">Greetings, adventurer! To begin your journey, you must present the ancient <span class="highlight">API KEY</span>. Speak to the elders at <a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap</a> to obtain one.</p>
+                </div>
+                <div class="modal-body">
+                    <div class="input-wrapper">
+                        <span class="input-icon">></span>
+                        <input type="text" id="apiKeyInput" placeholder="Enter thy API key..." autocomplete="off">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="saveKeyBtn" class="btn btn-pixel">START QUEST</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App -->
+        <div id="mainApp" class="hidden">
+            <header>
+                <div class="header-left">
+                    <div class="hp-bar">
+                        <div class="hp-label">LVL 1</div>
+                        <div class="hp-bar-outer">
+                            <div class="hp-bar-inner" id="tempBar"></div>
+                        </div>
+                        <div class="hp-value" id="tempLabel">???</div>
+                    </div>
+                </div>
+                <div class="header-center">
+                    <h1 class="game-title">SKYLIT</h1>
+                </div>
+                <div class="header-right"></div>
+            </header>
+
+            <div class="search-area">
+                <div class="search-box pixel-border">
+                    <span class="search-prompt">></span>
+                    <input type="text" id="cityInput" placeholder="Enter city name..." autocomplete="off">
+                    <button id="searchBtn" class="btn btn-pixel btn-search">GO!</button>
+                </div>
+            </div>
+
+            <div id="error" class="error hidden">
+                <div class="error-content pixel-border">
+                    <span class="error-icon">X</span>
+                    <span id="errorMsg"></span>
+                </div>
+            </div>
+
+            <div id="weatherContent" class="hidden">
+                <!-- Character Dialog Box -->
+                <div class="dialog-box pixel-border" id="dialogBox">
+                    <div class="dialog-npc">
+                        <div class="npc-bust" id="npcBust"></div>
+                    </div>
+                    <div class="dialog-text">
+                        <p class="dialog-speaker" id="dialogSpeaker">Bob</p>
+                        <p class="dialog-message typewriter" id="dialogMessage"></p>
+                    </div>
+                </div>
+
+                <!-- Weather Stats Panel -->
+                <div class="stats-panel pixel-border">
+                    <div class="stats-header">
+                        <span class="stats-title">-- STATUS --</span>
+                        <span class="stats-location" id="locationLabel">???</span>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-icon">T</span>
+                            <div class="stat-info">
+                                <span class="stat-label">TEMP</span>
+                                <span class="stat-value" id="statTemp">???</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">F</span>
+                            <div class="stat-info">
+                                <span class="stat-label">FEELS</span>
+                                <span class="stat-value" id="statFeels">???</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">W</span>
+                            <div class="stat-info">
+                                <span class="stat-label">WIND</span>
+                                <span class="stat-value" id="statWind">???</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">H</span>
+                            <div class="stat-info">
+                                <span class="stat-label">HUMID</span>
+                                <span class="stat-value" id="statHumid">???</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">P</span>
+                            <div class="stat-info">
+                                <span class="stat-label">PRESS</span>
+                                <span class="stat-value" id="statPress">???</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">V</span>
+                            <div class="stat-info">
+                                <span class="stat-label">VIS</span>
+                                <span class="stat-value" id="statVis">???</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forecast Section -->
+                <div class="forecast-section">
+                    <h2 class="section-title pixel-border">~ QUEST LOG (5 Days) ~</h2>
+                    <div id="forecast" class="forecast-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
