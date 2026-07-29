@@ -45,31 +45,6 @@ weatherapp/
 └── vercel.json
 ```
 
-## Local Development
-
-```bash
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-
-Open http://127.0.0.1:8000
-
-## Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `OPENWEATHER_API_KEY` | Your OpenWeatherMap API key |
-
-## Deployment
-
-```bash
-# Push to GitHub
-git add . && git commit -m "update" && git push
-
-# Deploy to Vercel
-vercel --prod
-```
 
 ## How It Works
 
