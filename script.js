@@ -1,9 +1,5 @@
 const API_BASE = '';
 
-const apiModal = document.getElementById('apiModal');
-const mainApp = document.getElementById('mainApp');
-const apiKeyInput = document.getElementById('apiKeyInput');
-const saveKeyBtn = document.getElementById('saveKeyBtn');
 const cityInput = document.getElementById('cityInput');
 const searchBtn = document.getElementById('searchBtn');
 const errorDiv = document.getElementById('error');
@@ -12,7 +8,6 @@ const weatherContent = document.getElementById('weatherContent');
 const scene = document.getElementById('scene');
 const dialogMessage = document.getElementById('dialogMessage');
 const dialogSpeaker = document.getElementById('dialogSpeaker');
-const npcBust = document.getElementById('npcBust');
 const starsContainer = document.getElementById('stars');
 
 function createStars() {
@@ -118,62 +113,6 @@ function typeWriter(element, text, speed = 30) {
     });
 }
 
-async function checkApiKey() {
-    try {
-        const res = await fetch(`${API_BASE}/api/has-key`);
-        const data = await res.json();
-        if (data.has_key) {
-            showMainApp();
-            loadWeather('London');
-        } else {
-            showApiModal();
-        }
-    } catch {
-        showApiModal();
-    }
-}
-
-function showApiModal() {
-    apiModal.classList.remove('hidden');
-    mainApp.classList.add('hidden');
-}
-
-function showMainApp() {
-    apiModal.classList.add('hidden');
-    mainApp.classList.remove('hidden');
-}
-
-saveKeyBtn.addEventListener('click', async () => {
-    const key = apiKeyInput.value.trim();
-    if (!key) {
-        apiKeyInput.parentElement.style.borderColor = '#ff4444';
-        return;
-    }
-
-    saveKeyBtn.textContent = 'LOADING...';
-    saveKeyBtn.disabled = true;
-
-    try {
-        const res = await fetch(`${API_BASE}/api/set-key`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ api_key: key }),
-        });
-
-        if (res.ok) {
-            showMainApp();
-            loadWeather('London');
-        } else {
-            apiKeyInput.parentElement.style.borderColor = '#ff4444';
-        }
-    } catch {
-        apiKeyInput.parentElement.style.borderColor = '#ff4444';
-    } finally {
-        saveKeyBtn.textContent = 'START QUEST';
-        saveKeyBtn.disabled = false;
-    }
-});
-
 searchBtn.addEventListener('click', () => {
     const city = cityInput.value.trim();
     if (city) loadWeather(city);
@@ -275,9 +214,5 @@ function hideError() {
     errorDiv.classList.add('hidden');
 }
 
-apiKeyInput.addEventListener('input', () => {
-    apiKeyInput.parentElement.style.borderColor = '';
-});
-
 createStars();
-checkApiKey();
+loadWeather('London');
